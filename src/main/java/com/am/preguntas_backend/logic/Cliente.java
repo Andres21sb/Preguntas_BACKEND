@@ -6,6 +6,7 @@ package com.am.preguntas_backend.logic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
  * @author Darkh
  */
 public class Cliente {
+
     private String nombre;
     private String id;
     private String clave;
@@ -36,8 +38,6 @@ public class Cliente {
     public void setPreguntas(List<Pregunta> preguntas) {
         this.preguntas = preguntas;
     }
-    
-    
 
     public String getNombre() {
         return nombre;
@@ -65,14 +65,47 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" +
-                "nombre='" + nombre + '\'' +
-                ", id='" + id + '\'' +
-                ", clave='" + clave + '\'' +
-                '}';
+        return "Cliente{"
+                + "nombre='" + nombre + '\''
+                + ", id='" + id + '\''
+                + ", clave='" + clave + '\''
+                + '}';
     }
 
     public boolean iniciarSesion(String id, String clave) {
         return this.id.equals(id) && this.clave.equals(clave);
     }
+
+    public Boolean verificaPregunta(String enunciado, String respuesta) {
+        Pregunta aEliminar = null;
+        Boolean output = false;
+        for (Pregunta pregunta : preguntas) {
+            if (enunciado.equals(pregunta.getEnunciado())) {
+                output = pregunta.isRespuestaCorrecta(respuesta);
+                aEliminar = pregunta;
+            }
+        }
+        
+        List<Pregunta> copia = this.getPreguntas();
+        copia.remove(aEliminar);
+        this.setPreguntas(copia);
+        int dummy = 0;
+        return output;
+    }
+
+    
+    public List<Pregunta> filter(String text){
+        List<Pregunta> output = new ArrayList<>();
+        if(text.equals("")){
+         output = preguntas;   
+        }else{
+        for(Pregunta pregunta: preguntas){
+            if(pregunta.getEnunciado().contains(text)){
+                output.add(pregunta);
+            }
+        }
+        }
+        return output;
+    }
+
 }

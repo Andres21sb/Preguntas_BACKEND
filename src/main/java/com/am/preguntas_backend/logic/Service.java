@@ -8,6 +8,7 @@ package com.am.preguntas_backend.logic;
  *
  * @author Darkh
  */
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,45 +22,53 @@ public class Service {
         }
         return uniqueInstance;
     }
-    
-    
-    
+
     private List<Pregunta> preguntas;
     private List<Cliente> clientes;
 
     public Service() {
+         preguntas = new ArrayList<>();
+        clientes = new ArrayList<>();
+
+        List<String> opciones1 = new ArrayList<>();
+        List<String> opciones2 = new ArrayList<>();
+        List<String> opciones3 = new ArrayList<>();
 
         // Creación de preguntas
-        Pregunta pregunta1 = new Pregunta("¿Qué es un NullPointerException en Java?", Arrays.asList(
-                "Un error al manipular cadenas de texto.",
-                "Una excepción lanzada cuando se intenta acceder a un objeto nulo.",
-                "Un problema con el manejo de excepciones en tiempo de ejecución."),
-                1);
+        Pregunta pregunta1 = new Pregunta("¿Qué es un NullPointerException en Java?", 1);
+        opciones1.add("Un error al manipular cadenas de texto.");
+        opciones1.add("Una excepción lanzada cuando se intenta acceder a un objeto nulo.");
+        opciones1.add("Un problema con el manejo de excepciones en tiempo de ejecución.");
+        pregunta1.setOpciones(opciones1);
+        preguntas.add(pregunta1);
+        
 
-        Pregunta pregunta2 = new Pregunta("¿Qué es un algoritmo de ordenamiento QuickSort?", Arrays.asList(
-                "Un algoritmo de búsqueda en profundidad.",
-                "Un algoritmo de ordenamiento por inserción.",
-                "Un algoritmo de ordenamiento recursivo basado en la técnica 'divide y vencerás'."),
-                2);
+        Pregunta pregunta2 = new Pregunta("¿Qué es un algoritmo de ordenamiento QuickSort?", 2);
+        opciones2.add("Un algoritmo de búsqueda en profundidad.");
+        opciones2.add("Un algoritmo de ordenamiento por inserción.");
+        opciones2.add("Un algoritmo de ordenamiento recursivo basado en la técnica 'divide y vencerás'.");
+        pregunta2.setOpciones(opciones2);
+        preguntas.add(pregunta2);
 
-        Pregunta pregunta3 = new Pregunta("¿Qué es una clase abstracta en programación orientada a objetos?", Arrays.asList(
-                "Una clase que no puede tener instancias.",
-                "Una clase que solo puede tener métodos estáticos.",
-                "Una clase que implementa una interfaz."),
-                0);
+        opciones3.add("Una clase que no puede tener instancias.");
+        opciones3.add("Una clase que solo puede tener métodos estáticos.");
+        opciones3.add("Una clase que implementa una interfaz.");
 
-        preguntas = Arrays.asList(pregunta1, pregunta2, pregunta3);
+        Pregunta pregunta3 = new Pregunta("¿Qué es una clase abstracta en programación orientada a objetos?", opciones3, 0);
+        preguntas.add(pregunta3);
 
         // Creación de clientes
         Cliente cliente1 = new Cliente("Juan Pérez", "111", "111");
         Cliente cliente2 = new Cliente("María López", "222", "222");
 
         // Agregar clientes a la lista de clientes
-        clientes = Arrays.asList(cliente1, cliente2);
-        
+        clientes.add(cliente1);
+        clientes.add(cliente2);
+
         //agregar preguntas a los clientes
-        for(Cliente cliente:clientes){
-            cliente.setPreguntas(preguntas);
+        for (Cliente cliente
+                : clientes) {
+            cliente.setPreguntas(new ArrayList<>(preguntas));
         }
     }
 

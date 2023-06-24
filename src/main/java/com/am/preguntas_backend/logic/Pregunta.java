@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pregunta {
+
     private String enunciado;
     private List<String> opciones;
     private int respuestaCorrecta;
@@ -19,6 +20,12 @@ public class Pregunta {
     public Pregunta(String enunciado, List<String> opciones, int respuestaCorrecta) {
         this.enunciado = enunciado;
         this.opciones = opciones;
+        this.respuestaCorrecta = respuestaCorrecta;
+    }
+
+    public Pregunta(String enunciado, int respuestaCorrecta) {
+        this.enunciado = enunciado;
+        opciones=new ArrayList<>();
         this.respuestaCorrecta = respuestaCorrecta;
     }
 
@@ -45,5 +52,10 @@ public class Pregunta {
     public void setRespuestaCorrecta(int respuestaCorrecta) {
         this.respuestaCorrecta = respuestaCorrecta;
     }
-}
 
+    public Boolean isRespuestaCorrecta(String respuesta) {
+        String correcta = this.getOpciones().get(this.getRespuestaCorrecta());
+        return respuesta.equals(correcta);
+    }
+
+}
